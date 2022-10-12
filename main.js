@@ -41,7 +41,6 @@ const render =()=>{
     })
 }
 render()
-
 $('.addButton')
     .on('click', ()=>{
         let url = window.prompt('请输入需要添加的网址')
@@ -58,7 +57,9 @@ window.onbeforeunload = ()=>{
     const string = JSON.stringify(hashMap)
     localStorage.setItem('x',string)
 }
+let isInputing = false
 $(document).on('keypress',(e)=>{
+    if (isInputing) return;
     const {key} = e
     for (let i = 0; i<hashMap.length; i++){
         if (hashMap[i].logo.toLocaleLowerCase()===key){
@@ -66,3 +67,5 @@ $(document).on('keypress',(e)=>{
         }
     }
 })
+$('#searchInput').on('focus',() => isInputing = true)
+$('#searchInput').on('blur',() => isInputing = false)
